@@ -1,55 +1,50 @@
 export default class AllPhotographers{
     constructor(){
-        this.DataPhotographers = [];
-        this.getData();
-        this.displayData();
+        //init tableau fetch
+        this.arrayPhotographers = [];
+
+        //feinte
+        this.getPhotographers = (e) => this._getPhotographers(e);
+
+        //appel des methodes
+        this.getPhotographers();
     }
-    getData(){
-            fetch("/data/photographers.json")
-                .then(res => {
-                    if(res.ok){
-                        return res.json();
-                    }
-                })
-                .then(data =>{
-                    let tempArray = []
-                    for (let i = 0; i < data["photographers"].length; i++) {
-                        tempArray  = (data.photographers[i])
-                            console.log(data.photographers[i])
-                    }  
-                    return this.DataPhotographers = tempArray;
-                })
-                .then(test =>{
-                    console.log(this.DataPhotographers)
-                })
-                .catch(function(err){
-                    console.error("bad")
-                })
-            //fetch = recup data allphotographers => stock dans tableau.
-            //fonction assynchrone
-            //verifi donées
+
+    //Methodes
+    async _getPhotographers() {
+        const reponse = await fetch("data/photographers.json", {
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+                "content-Type": "application/json"
+            }
+        });
+        if (reponse.status === 200) {
+            const res = await reponse.json();
+
+            //enregistrement tableau
+            this.arrayPhotographers = res.photographers;
+            this.displayData(this.arrayPhotographers);
+        }
     }
-    displayData() {
-           
-            const photographers = this.DataPhotographers
-            const photographersSection = document.querySelector(".photographer_section");
-            console.log(photographersSection)
-    
-    
-    
-            photographers.forEach((photographer) => {
-                const photographerModel = photographerFactory(photographers);
-                const userCardDOM = photographerModel.getUserCardDOM();
-                photographersSection.appendChild(userCardDOM);
-            });
-    
-            async function init() {
-                // Récupère les datas des photographes
-                const { photographers } = await getData();
-                displayData();
-            };
+    //home page diplaydata
+    displayData(photographers) {
+        const photographersSection = document.getElementsByClassName("photographer_section")[0];
+        photographersSection.innerHTML = "";
+        photographers.forEach((photographer) => {
+            const article = document.createElement("article")
+            this._picture = `assets/samplePhotos/Photographers_ID_Photos/${photographer.portrait}`;
+
+            article.innerHTML = `
+            <a href ="./photographer.html?id=${photographer.id}" arial-label="${photographer.name}">
+                <img src = ${this._picture} alt = "${photographer.name}" />
+                <h2 class="name">${photographer.name}</h2>
+            </a>
+            <p class="location">${photographer.city}, ${photographer.country}</p>
+            <p class="tagline">${photographer.tagline}</p>
+            <small class="price">${photographer.price}€/jour</small> `;
         
-        init();  
-    
+        photographersSection.appendChild(article)
+        });
     }
-    }
+}

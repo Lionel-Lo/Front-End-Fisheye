@@ -26,6 +26,7 @@ export default class AllPhotographers{
             this.arrayPhotographers = res.photographers;
             this.displayData(this.arrayPhotographers);
         }
+        console.log(this.arrayPhotographers)
     }
     //home page diplaydata
     displayData(photographers) {

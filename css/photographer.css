@@ -6,6 +6,63 @@
     background-color: #FAFAFA;
     height: 300px;
     margin: 0 100px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.photograph-header img{
+    height: 200px;
+    width: 200px;
+    border-radius: 50%; /*mise en forme photos*/
+    object-fit: cover; 
+}
+.name{
+    font-size: 3em;
+    color: #D3573C
+}
+.contry{
+    color: #901C1C;
+    font-size: 1.7em;
+    margin-bottom: 19px;
+}
+
+.tagline{
+    font-size: 1.2em;
+    color: #525252;
+}
+
+.contennerImage{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.image{
+    width: 350px;
+    height: 300px;
+    margin: 95px 0px 0px 95px;
+}
+
+.image img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.titleLike{
+    font-size: 1.3em;
+    color: #901C1C;
+    display: flex;
+    justify-content: space-between;
+}
+
+.like{
+    display: flex;
+}
+
+.heart .fas{
+    display: none;
 }
 
 .contact_button {
@@ -31,6 +88,9 @@
     justify-content: space-between;
     padding: 35px;
     margin: auto;
+    position: fixed;
+    top: 55%;
+    left: 25%;
 }
 
 .modal header {

@@ -34,7 +34,7 @@ export default class AllPhotographers{
         photographersSection.innerHTML = "";
         photographers.forEach((photographer) => {
             const article = document.createElement("article")
-            this._picture = `assets/samplePhotos/Photographers_ID_Photos/${photographer.portrait}`;
+            this._picture = `assets/photographers/Photographers_ID_Photos/${photographer.portrait}`;
 
             article.innerHTML = `
             <a href ="./photographer.html?id=${photographer.id}" arial-label="${photographer.name}">

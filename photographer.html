@@ -13,21 +13,59 @@
       <a href="/index.html"><img src="assets/images/logo.png" class="logo" /></a>
     </header>
     <main id="main">
+      <div class="photograph-header">
+        <div class = "identity">
+            <div class = "name">${photographe.name}</div>
+            <div class = "contry">${photographe.city}, ${photographe.country} </div>
+            <div class = "tagline"> ${photographe.tagline}</div>
+        </div>
+        <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
+        <div class ="picturePhotographer"></div>
+    </div>
+    <div id="filterMenue">
+        <div id="filter">Trier par</div>
+        <select id="filterType" name="select">
+          <option value="popularité">Popularité</option>
+          <option value="date">Date</option>
+          <option value="titre">Titre</option>
+        </select>
+    </div>
+    <div class = "contennerImage">
+    </div>
+    </div>
     </main>
+    <div id="totalLike">
+    </div>
     <div id="contact_modal">
-			<div class="modal">
-				<header>
-          <h2>Contactez-moi</h2>
-          <img src="assets/icons/close.svg" onclick="closeModal()" />
+      <div class="modal">
+        <header>
+            <div id="headerContact">
+                <h2 id="contact">Contactez-moi</h2>
+                <h2 id="namePhotographer"></h2>
+            </div>
+            <img src="assets/icons/close.svg" onclick="closeModal()" />
         </header>
-				<form>
-					<div>
-						<label>Prénom</label>
-						<input />
-					</div>
-          <button class="contact_button">Envoyer</button>
-				</form>
-			</div>
+        <form>
+        <div>
+            <div class="formData firstName">
+                <label>Prénom</label>
+                <input class="text-control" type="text" id="first" name="first" minlength="2" />
+            </div>
+            <div class="formData lastName">
+                <label>Nom</label>
+                <input class="text-control" type="text" id="last" name="last" />
+            </div>
+            <div class="formData mail">
+                <label>E-mail</label>
+                <input class="text-control" type="email" id="email" name="email" />
+            </div>
+            <div class="formData message">
+            <label>Votre message</label>
+            <textarea id="message" class="input" name="message" rows="7" cols="30"></textarea>
+        </div>
+            <button id='submit' class="contact_button">Envoyer</button>
+      </form>
+    </div>
 		</div>
     <script src="/scripts/utils/contactForm.js"></script>
     <script type="module" src="scripts/pages/photographer.js"></script>

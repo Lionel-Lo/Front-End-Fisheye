@@ -36,33 +36,80 @@
     display: flex;
     flex-wrap: wrap;
     width: 100%;
+    justify-content: center;
+}
+article{
+    margin: 50px 45px 45px 50px;
 }
 
 .image{
     width: 350px;
     height: 300px;
-    margin: 95px 0px 0px 95px;
+    
 }
 
-.image img{
+.image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 10px;
+}
+.image video{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
 }
 
 .titleLike{
-    font-size: 1.3em;
+    font-size: 1.2em;
     color: #901C1C;
     display: flex;
     justify-content: space-between;
 }
 
-.like{
+#totalLike{
+    font-size: 20px;
+    background-color: #DB8876;
     display: flex;
+    border-radius: 5px;
+    width: 20%;
+    padding: 10px;
+    justify-content: space-between;
+    box-sizing: border-box;
+    position: fixed;
+    right: 45px;
+    bottom: 10px;
+    z-index: 2;
+}
+.numberHeart{
+    width: 40%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
+.title{
+    width: 60%;
+}
+
+.like{
+    display: flex;
+    width: 20%;
+    justify-content: space-between;
+}
+
+.heart{
+    display: flex;
+    align-items: center;
+}
 .heart .fas{
-    display: none;
+    position: absolute;
+    opacity: 0;
+    z-index: 0;
+}
+.heart .far{
+    z-index: 1;
 }
 
 .contact_button {
@@ -88,14 +135,16 @@
     justify-content: space-between;
     padding: 35px;
     margin: auto;
-    position: fixed;
+    position: absolute;
     top: 55%;
     left: 25%;
+    z-index: 2;
 }
 
 .modal header {
     justify-content: space-between;
     width: 100%;
+    margin-bottom: 19px;
 }
 
 .modal header img {
@@ -103,9 +152,13 @@
 }
 
 .modal header h2 {
-    font-size: 64px;
+    font-size: 2.7em;
     font-weight: normal;
-    text-align: center;
+    margin: 0px;
+}
+
+.modal label{
+    font-size: 1.50rem;
 }
 
 form {
@@ -133,4 +186,36 @@ form input {
     height: 68px;
     border: none;
     border-radius: 5px;
+}
+
+form #message{
+    width: 100%;
+}
+
+form .hidden{
+    display: none;
+}
+/* filter */
+
+#filterMenue{
+    display: flex;
+    font-size: 30px;
+    margin: 10px 0px 0px 100px;
+    position: relative;
+}
+
+#filter{
+    padding: 20px;
+}
+
+#filterType{
+    width: 30%;
+    font-size: 30px;
+    background-color: #901C1C;
+    color: white;
+}
+
+img, video{
+    cursor: pointer;
+    object-fit: cover;
 }

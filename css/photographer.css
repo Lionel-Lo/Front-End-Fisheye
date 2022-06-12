@@ -18,7 +18,7 @@
     object-fit: cover; 
 }
 .name{
-    font-size: 3em;
+    font-size: 2em;
     color: #D3573C
 }
 .contry{
@@ -62,7 +62,6 @@ article{
 }
 
 .titleLike{
-    font-size: 1.2em;
     color: #901C1C;
     display: flex;
     justify-content: space-between;
@@ -90,13 +89,16 @@ article{
 }
 
 .title{
-    width: 60%;
+    width: 50%;
+    font-size: 1.2em;
+    color: #901C1C;
 }
 
 .like{
     display: flex;
     width: 20%;
     justify-content: space-between;
+    font-size: 1.2em;
 }
 
 .heart{

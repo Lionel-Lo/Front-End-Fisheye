@@ -46,7 +46,8 @@
     opacity: 1;
 }
 
-#lightbox__container img{
+#lightbox__container img,
+#lightbox__container video{
     max-width: 50%;
     height: 50%;
     animation: lightboxIn .5s;
@@ -60,6 +61,7 @@
     align-items: center;
     justify-content: center;
     min-height: 100vh;
+    flex-direction: column;
 }
 
 @keyframes lightboxIn{
@@ -73,7 +75,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #e5e5e56c;
+    background-color: #E5E5E5;
     z-index: 10;
     overflow: auto;
     animation: lightboxIn .5s;

@@ -3,11 +3,10 @@ import Photographer from '../factories/photographer.js';
 
 
 let photographer;
-// let litghtbox
 
-async function init(){
+async function init() {
     photographer = new Photographer();
-    
+
 }
 
 init();

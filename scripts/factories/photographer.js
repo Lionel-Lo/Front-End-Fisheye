@@ -10,9 +10,8 @@ export default class Photographer {
         this.curentMedias = [];
         this.filter = document.getElementById("filterType")
         this.totalLike = 0
-        this.links = []
 
-        //feinte
+        //bind du this.
         this.getPhotographer = (e) => this._getPhotographer(e);
 
         //appel des methodes
@@ -28,7 +27,7 @@ export default class Photographer {
         })
     }
 
-    //Methodes fetch sur le JSON
+    //Recuperation des données via la Methodes fetch sur le JSON
     async _getPhotographer() {
         const reponse = await fetch("data/photographers.json", {
             method: "GET",
@@ -70,10 +69,10 @@ export default class Photographer {
     photographerInfos() {
         const photographe = this.curentPhotographer[0];
         this.photographerPicture = `assets/photographers/Photographers_ID_Photos/${photographe.portrait}`;
-        document.querySelector("div.name").textContent = `${photographe.name}`
+        document.querySelector("div.name h1").textContent = `${photographe.name}`
         document.querySelector("div.contry").textContent = `${photographe.city}, ${photographe.country}`
         document.querySelector("div.tagline").textContent = `${photographe.tagline}`
-        document.querySelector(".picturePhotographer").innerHTML = `<img src = ${this.photographerPicture} alt = "${photographe.name}" />`
+        document.querySelector(".picturePhotographer").innerHTML = `<img role="image" src = ${this.photographerPicture} alt = "${photographe.name}" />`
         this.formHTML()
     }
 
@@ -81,7 +80,7 @@ export default class Photographer {
     videosOrPicture = (item) => {
         if (item.video) {
             const divVideo = `
-                    <video tabindex="0" aria-label="${item.title} video" data-controls="false" class="js-card js-video">
+                    <video controls tabindex="0" aria-label="${item.title}" video" data-controls="false" class="js-card js-video">
                     <source class="js-card"
                         src="assets/photographers/${item.photographerId}/${item.video}"
                         type="video/mp4">
@@ -131,6 +130,8 @@ export default class Photographer {
         //selection du DOM
         const photos = document.getElementsByClassName("contennerImage")[0]
 
+        this.totalLike = 0;
+
         //boucle affichage Photos    
         photos.innerHTML = "";
         for (var i = 0; i < medias.length; i++) {
@@ -156,9 +157,11 @@ export default class Photographer {
             this.like(medias[i])
             this.totalLike += medias[i].likes
 
-        } 
+        }
         //Appel a la fonction lightbox après la fin de la boucle
-        this.lightbox()
+        this.lightbox(medias)
+        //Appel de la fonction pour afficher le nombre total de like
+        this.likePrice()
     }
 
     // like par medias
@@ -171,22 +174,24 @@ export default class Photographer {
         let likeNumber = document.getElementById(item.id + 2);
         let heart = document.getElementById(item.id + 3);
 
-        //Appel de la fonction pour afficher le nombre total de like
-        this.likePrice()
+
 
         //Evenement pour les likes sur chaque photos
-        heart.addEventListener("click", function (e) {
+        heart.addEventListener("click", (e) => {
             if (e.target == heartPlus) {
                 likeNumber.innerText++
                 heartMoins.style.zIndex = "1"
                 heartMoins.style.opacity = "1"
                 heartPlus.style.zIndex = "0"
+                this.totalLike += 1
             } else {
                 likeNumber.innerText--
                 heartMoins.style.zIndex = "0"
                 heartMoins.style.opacity = "0"
                 heartPlus.style.zIndex = "1"
+                this.totalLike += -1
             }
+            this.likePrice();
         })
     }
 
@@ -198,54 +203,51 @@ export default class Photographer {
 
     // Nombre total de like
     likePrice() {
-        const sumLike = document.getElementById("totalLike")
+        const sumLike = document.getElementById("totalLike");
         sumLike.innerHTML =
             `
         <div class="numberHeart">${this.totalLike}<i class="fas fa-heart full"></i></div>
         <div class ="priceForDay">${this.curentPhotographer[0].price}€/jour</div>`
-
-
     }
+
+
 
     /**
      * construction de la lightbox
      */
 
-    //creation de la lightbox
+
+
+    // creation de la lightbox
     lightbox() {
-        const lightbox = document.createElement('div')
-        lightbox.id = 'lightbox'
+        const lightbox__container = document.getElementById("lightbox__container");
+        const images = document.querySelectorAll('img.js-card, video.js-card');
+        const titles = document.querySelectorAll('.title');
 
-        lightbox.innerHTML = `
-                <button id="lightbox__close">close</button>
-                <button id="lightbox__next">next</button>
-                <button id="lightbox__prev">prev</button>
-                <div id="lightbox__container"></div> `
+        images.forEach((image, index) => {
 
-        document.body.appendChild(lightbox)
-        const lightbox__container = document.getElementById("lightbox__container")
-        const images = document.querySelectorAll('img.js-card, video.js-card')
-
-
-        images.forEach(image => {
             image.addEventListener('click', e => {
                 e.preventDefault()
+                let video_picture = images[index].outerHTML
+                let title = titles[index].outerHTML
+                this.index = index //recuperation de l'index
                 lightbox.classList.add('active')
-                const img = document.createElement('img')
-                img.src = image.src
+                lightbox__container.innerHTML = `${video_picture} ${title}`
                 while (lightbox__container.firstChild) {
                     lightbox__container.removeChild(lightbox__container.firstChild)
                 }
-
-                lightbox__container.appendChild(img)
+                lightbox__container.innerHTML = `${video_picture} ${title}`
             })
         })
 
         //Appel de fonction
+
         this.close()
         this.next()
         this.prev()
         this.keyEscape()
+        this.keyArrowLeft()
+        this.keyArrowRight()
     }
 
     //fonction de fermeture de la lightbox via la croix
@@ -257,58 +259,89 @@ export default class Photographer {
         })
     }
 
-    //fonction pour passer a l'image suivante via la fleche
+    //fonction pour passer a l'image suivante 
     next() {
         const next = document.getElementById("lightbox__next")
         const images = document.querySelectorAll('img.js-card, video.js-card')
+        const lightbox__container = document.getElementById("lightbox__container");
+        const titles = document.querySelectorAll('.title');
 
 
-        for (const image of images) {
-            next.addEventListener('click', e => {
-                e.preventDefault()
-                lightbox.classList.add('active')
-                const img = document.createElement('img')
-                img.src = image.src
-                while (lightbox__container.firstChild) {
-                    lightbox__container.removeChild(lightbox__container.firstChild)
-                }
 
-                lightbox__container.appendChild(img)
+        next.addEventListener('click', e => {
+            e.preventDefault()
+            if (this.index < images.length) {
+                this.index++
+                let title = titles[this.index].outerHTML
+                let video_picture = images[this.index].outerHTML
+                lightbox__container.innerHTML = `${video_picture} ${title}`
+            }
 
-            })
-        }
+        })
+
+
     }
 
-    //fonction pour passer a l'image precedente via la fleche
+    //fonction pour passer a l'image precedente 
     prev() {
         const prev = document.getElementById("lightbox__prev")
         const images = document.querySelectorAll('img.js-card, video.js-card')
-        images.forEach(image => {
-            prev.addEventListener('click', e => {
-                lightbox.classList.add('active')
-                const img = document.createElement('img')
-                img.src = image.src
-                while (lightbox__container.firstChild) {
-                    lightbox__container.removeChild(lightbox__container.firstChild)
-                }
+        const lightbox__container = document.getElementById("lightbox__container");
+        const titles = document.querySelectorAll('.title');
 
-                lightbox__container.appendChild(img)
-            })
+
+
+        prev.addEventListener('click', e => {
+            if (this.index < images.length) {
+                this.index--
+                let title = titles[this.index].outerHTML
+                let video_picture = images[this.index].outerHTML
+                lightbox__container.innerHTML = `${video_picture} ${title}`
+            }
+
         })
+
     }
 
     //fermeture de la lightbon via la touche escape
     keyEscape(e) {
         const lightbox = document.getElementById("lightbox")
-        onkeydown = function (e) {
+        document.addEventListener("keydown", e => {
             if (e.key == "Escape") {
                 e.preventDefault()
                 lightbox.classList.remove("active")
-                console.log("escape")
             }
-        };
+        });
     }
 
+    //fonction pour passer a l'image suivante via la fleche droite
+    keyArrowRight(e) {
+        document.addEventListener("keydown", e => {
+            const images = document.querySelectorAll('img.js-card, video.js-card')
+            const titles = document.querySelectorAll('.title');
+            if (e.key == "ArrowRight") {
+                e.preventDefault()
+                this.index++
+                let title = titles[this.index].outerHTML
+                let video_picture = images[this.index].outerHTML
+                lightbox__container.innerHTML = `${video_picture} ${title}`
+            }
+        });
+    }
 
+    //fonction pour passer a l'image precedente via la fleche gauche
+    keyArrowLeft(e) {
+        const images = document.querySelectorAll('img.js-card, video.js-card')
+        const titles = document.querySelectorAll('.title');
+        document.addEventListener("keydown", e => {
+            if (e.key == "ArrowLeft") {
+                e.preventDefault()
+                this.index--
+                let title = titles[this.index].outerHTML
+                let video_picture = images[this.index].outerHTML
+                lightbox__container.innerHTML = `${video_picture} ${title}`
+            }
+        });
+    }
 
 }

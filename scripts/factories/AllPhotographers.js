@@ -1,5 +1,5 @@
-export default class AllPhotographers{
-    constructor(){
+export default class AllPhotographers {
+    constructor() {
         //init tableau fetch
         this.arrayPhotographers = [];
 
@@ -44,8 +44,8 @@ export default class AllPhotographers{
             <p class="location">${photographer.city}, ${photographer.country}</p>
             <p class="tagline">${photographer.tagline}</p>
             <small class="price">${photographer.price}€/jour</small> `;
-        
-        photographersSection.appendChild(article)
+
+            photographersSection.appendChild(article)
         });
     }
 }

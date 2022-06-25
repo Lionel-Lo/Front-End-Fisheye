@@ -69,7 +69,7 @@ export default class Photographer {
     photographerInfos() {
         const photographe = this.curentPhotographer[0];
         this.photographerPicture = `assets/photographers/Photographers_ID_Photos/${photographe.portrait}`;
-        document.querySelector("div.name h1").textContent = `${photographe.name}`
+        document.querySelector("div.name").textContent = `${photographe.name}`
         document.querySelector("div.contry").textContent = `${photographe.city}, ${photographe.country}`
         document.querySelector("div.tagline").textContent = `${photographe.tagline}`
         document.querySelector(".picturePhotographer").innerHTML = `<img role="image" src = ${this.photographerPicture} alt = "${photographe.name}" />`
@@ -80,7 +80,7 @@ export default class Photographer {
     videosOrPicture = (item) => {
         if (item.video) {
             const divVideo = `
-                    <video controls tabindex="0" aria-label="${item.title}" video" data-controls="false" class="js-card js-video">
+                    <video tabindex="0" controls aria-label="${item.title} video" data-controls="false" class="js-card js-video">
                     <source class="js-card"
                         src="assets/photographers/${item.photographerId}/${item.video}"
                         type="video/mp4">
@@ -130,6 +130,7 @@ export default class Photographer {
         //selection du DOM
         const photos = document.getElementsByClassName("contennerImage")[0]
 
+        //compteur total de like mise a zero
         this.totalLike = 0;
 
         //boucle affichage Photos    
@@ -162,12 +163,12 @@ export default class Photographer {
         this.lightbox(medias)
         //Appel de la fonction pour afficher le nombre total de like
         this.likePrice()
+        this.keyEnter()
     }
 
     // like par medias
     like(item) {
-        //compteur de like avec css sur addEvent
-
+        
         // selection DOM
         let heartPlus = document.getElementById(item.id + 1);
         let heartMoins = document.getElementById(item.id);
@@ -210,16 +211,14 @@ export default class Photographer {
         <div class ="priceForDay">${this.curentPhotographer[0].price}€/jour</div>`
     }
 
-
-
     /**
      * construction de la lightbox
      */
 
-
-
     // creation de la lightbox
     lightbox() {
+
+        //DOM
         const lightbox__container = document.getElementById("lightbox__container");
         const images = document.querySelectorAll('img.js-card, video.js-card');
         const titles = document.querySelectorAll('.title');
@@ -232,10 +231,6 @@ export default class Photographer {
                 let title = titles[index].outerHTML
                 this.index = index //recuperation de l'index
                 lightbox.classList.add('active')
-                lightbox__container.innerHTML = `${video_picture} ${title}`
-                while (lightbox__container.firstChild) {
-                    lightbox__container.removeChild(lightbox__container.firstChild)
-                }
                 lightbox__container.innerHTML = `${video_picture} ${title}`
             })
         })
@@ -261,13 +256,14 @@ export default class Photographer {
 
     //fonction pour passer a l'image suivante 
     next() {
+        //DOM
         const next = document.getElementById("lightbox__next")
         const images = document.querySelectorAll('img.js-card, video.js-card')
         const lightbox__container = document.getElementById("lightbox__container");
         const titles = document.querySelectorAll('.title');
 
 
-
+        //Event au click next
         next.addEventListener('click', e => {
             e.preventDefault()
             if (this.index < images.length) {
@@ -284,13 +280,15 @@ export default class Photographer {
 
     //fonction pour passer a l'image precedente 
     prev() {
+
+        //DOM
         const prev = document.getElementById("lightbox__prev")
         const images = document.querySelectorAll('img.js-card, video.js-card')
         const lightbox__container = document.getElementById("lightbox__container");
         const titles = document.querySelectorAll('.title');
 
 
-
+        //Event au click previous
         prev.addEventListener('click', e => {
             if (this.index < images.length) {
                 this.index--
@@ -305,7 +303,11 @@ export default class Photographer {
 
     //fermeture de la lightbon via la touche escape
     keyEscape(e) {
+
+        //DOM
         const lightbox = document.getElementById("lightbox")
+
+        //event close keydown escape
         document.addEventListener("keydown", e => {
             if (e.key == "Escape") {
                 e.preventDefault()
@@ -317,8 +319,12 @@ export default class Photographer {
     //fonction pour passer a l'image suivante via la fleche droite
     keyArrowRight(e) {
         document.addEventListener("keydown", e => {
+
+            //DOM
             const images = document.querySelectorAll('img.js-card, video.js-card')
             const titles = document.querySelectorAll('.title');
+
+            //event keydown Arrow-right for next picture
             if (e.key == "ArrowRight") {
                 e.preventDefault()
                 this.index++
@@ -331,8 +337,12 @@ export default class Photographer {
 
     //fonction pour passer a l'image precedente via la fleche gauche
     keyArrowLeft(e) {
+
+        //DOM
         const images = document.querySelectorAll('img.js-card, video.js-card')
         const titles = document.querySelectorAll('.title');
+
+        //event keydown arrow-left for previous picture
         document.addEventListener("keydown", e => {
             if (e.key == "ArrowLeft") {
                 e.preventDefault()
@@ -342,6 +352,29 @@ export default class Photographer {
                 lightbox__container.innerHTML = `${video_picture} ${title}`
             }
         });
+    }
+
+    //ouverture de la lightbox via la touche enter
+    keyEnter(e){
+
+        //DOM
+        const lightbox__container = document.getElementById("lightbox__container");
+        const images = document.querySelectorAll('img.js-card, video.js-card');
+        const titles = document.querySelectorAll('.title');
+
+        //Create litghbox on event keydown enter
+        images.forEach((image, index) => {
+            image.addEventListener("keydown", e => {
+                if (e.key == "Enter") {
+                    e.preventDefault()
+                let video_picture = images[index].outerHTML
+                let title = titles[index].outerHTML
+                this.index = index
+                lightbox.classList.add('active')
+                lightbox__container.innerHTML = `${video_picture} ${title}`
+                }
+            });
+        })
     }
 
 }

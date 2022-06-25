@@ -1,3 +1,4 @@
+// DOM
 const modal = document.getElementById("contact_modal");
 const openModalBtn  = document.querySelector(".photograph-header .contact_button");
 const mainWrapper = document.getElementById("main-wrapper");
@@ -12,6 +13,16 @@ function displayModal() {
     modal.setAttribute('aria-hidden', 'false')
     modalCloseBtn.focus()
     keyEscapeModal()
+    document.getElementById("first").focus()
+
+    // recuperation des entrées dans le formulaire
+    const inputs = document.getElementsByTagName("input")
+    Array.from(inputs).forEach((input) => {
+        input.addEventListener("change", e=>{
+            console.log(input.value)
+        }) 
+    });
+    
 }
 
 function closeModal() {

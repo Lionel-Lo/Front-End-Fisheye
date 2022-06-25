@@ -1,14 +1,17 @@
+/* mise en page infos photographer */
+
 #contact_modal {
     display: none;
 }
 
 .photograph-header {
     background-color: #FAFAFA;
-    height: 300px;
+    height: 340px;
     margin: 0 100px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
+    padding: 0px 3% 0px 3%;
 }
 
 .photograph-header img{
@@ -17,14 +20,16 @@
     border-radius: 50%; /*mise en forme photos*/
     object-fit: cover; 
 }
+
 .name{
-    font-size: 2em;
+    font-size: 4.5em;
     color: #D3573C
 }
+
 .contry{
     color: #901C1C;
     font-size: 1.7em;
-    margin-bottom: 19px;
+    margin-bottom: 2%;
 }
 
 .tagline{
@@ -32,12 +37,14 @@
     color: #525252;
 }
 
+/* mise en page des vignettes medias */
 .contennerImage{
     display: flex;
     flex-wrap: wrap;
     width: 100%;
     justify-content: center;
 }
+
 article{
     margin: 50px 45px 45px 50px;
 }
@@ -48,19 +55,15 @@ article{
     
 }
 
-.image img {
+img, video{
+    cursor: pointer;
+    object-fit: cover;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    border-radius: 10px;
-}
-.image video{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
     border-radius: 10px;
 }
 
+/* mise en forme des likes et titre */
 .titleLike{
     color: #901C1C;
     display: flex;
@@ -81,6 +84,7 @@ article{
     bottom: 10px;
     z-index: 2;
 }
+
 .numberHeart{
     width: 40%;
     display: flex;
@@ -105,11 +109,13 @@ article{
     display: flex;
     align-items: center;
 }
+
 .heart .fas{
     position: absolute;
     opacity: 0;
     z-index: 0;
 }
+
 .heart .far{
     z-index: 1;
 }
@@ -127,6 +133,7 @@ article{
     cursor: pointer;
 }
 
+/* mise en forme du formulaire contact */
 .modal {
     border-radius: 5px;
     background-color: #DB8876;
@@ -188,36 +195,41 @@ form input {
     height: 68px;
     border: none;
     border-radius: 5px;
+    font-size: 26px;
 }
 
 form #message{
     width: 100%;
+    font-size: 26px;
 }
 
-form .hidden{
-    display: none;
+#close{
+    object-fit:none;
+    width: 10%;
+    height: 30%;
+    position: absolute;
+    bottom: 79%;
+    left: 85%;
 }
-/* filter */
+
+/* Mise en forme du menue filter */
 
 #filterMenue{
     display: flex;
-    font-size: 30px;
-    margin: 10px 0px 0px 100px;
+    font-size: 20px;
+    margin: 12px 0px 0px 100px;
     position: relative;
 }
 
 #filter{
-    padding: 20px;
+    padding: 0px 10px 0px 0px;;
 }
 
 #filterType{
-    width: 30%;
-    font-size: 30px;
+    width: 15%;
+    font-size: 20px;
     background-color: #901C1C;
     color: white;
 }
 
-img, video{
-    cursor: pointer;
-    object-fit: cover;
-}
+

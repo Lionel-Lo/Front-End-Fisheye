@@ -1,3 +1,4 @@
+/* importation des autre feuille de style */
 @import url("photographer.css");
 @import url("lightbox.css");
 
@@ -5,7 +6,6 @@ body {
     font-family: "DM Sans", sans-serif;
     margin: 0;
 }
-
 
 header {
     display: flex;
@@ -23,6 +23,9 @@ h1 {
 .logo {
     height: 50px;
     margin-left: 100px;
+    object-fit: contain;
+    border-radius: 0;
+    width: 68%;
 }
 
 .photographer_section {
@@ -51,7 +54,6 @@ h1 {
     align-items: center;
     flex-direction: column;
     text-align: center;
-    /*centrer les vignettes*/
 }
 
 .photographer_section article h2 {
@@ -63,7 +65,6 @@ h1 {
     height: 200px;
     width: 200px;
     border-radius: 50%;
-    /*mise en forme photos*/
     object-fit: cover;
 }
 

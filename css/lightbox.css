@@ -3,7 +3,7 @@
     display: none;
 }
 
-
+/* mise en forme des fleches next and previous */
 #lightbox__next,
 #lightbox__prev{
     border : none;
@@ -24,6 +24,7 @@
     transform: rotate(180deg);
 }
 
+/* mise en forme button close */
 #lightbox__close{
     border : none;
     background: url(../assets/icons/close_2.svg) center center / 100% 100%;
@@ -42,6 +43,7 @@
     cursor: pointer;
     text-indent: -3000px;
 }
+
 #lightbox button:hover{
     opacity: 1;
 }
@@ -54,7 +56,6 @@
     object-fit: cover;
     border-radius: 5px;
 }
-
 
 #lightbox__container{
     display: flex;
@@ -69,6 +70,7 @@
     to{opacity: 1;}
 }
 
+/* mise en forme de la lightbox lorsqu'elle est active */
 #lightbox.active{
     position: fixed;
     top: 0;

@@ -3,6 +3,8 @@ const modal = document.getElementById("contact_modal");
 const openModalBtn  = document.querySelector(".photograph-header .contact_button");
 const mainWrapper = document.getElementById("main-wrapper");
 const modalCloseBtn = document.querySelector(".modal img");
+const submit = document.getElementById("submit")
+
 
 
 
@@ -14,14 +16,6 @@ function displayModal() {
     modalCloseBtn.focus()
     keyEscapeModal()
     document.getElementById("first").focus()
-
-    // recuperation des entrées dans le formulaire
-    const inputs = document.getElementsByTagName("input")
-    Array.from(inputs).forEach((input) => {
-        input.addEventListener("change", e=>{
-            console.log(input.value)
-        }) 
-    });
     
 }
 
@@ -40,3 +34,13 @@ function keyEscapeModal(e) {
         }
     });
 }
+
+    // recuperation des entrées dans le formulaire
+    const inputs = document.querySelectorAll("input, textarea");
+    Array.from(inputs).forEach((input) => {
+        submit.addEventListener("click", e=>{
+            e.preventDefault()
+            closeModal()
+            console.log(input.value)
+        }) 
+    });

@@ -2,7 +2,7 @@ import AllPhotographers from '../factories/AllPhotographers.js';
 
 let photographers;
 
-function init() {
+async function init() {
     photographers = new AllPhotographers();
 }
 

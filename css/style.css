@@ -71,15 +71,15 @@ h1 {
 /*mise en page block photographer_section*/
 .photographer_section article .location {
     color: #901C1C;
-    font-size: 17px;
+    font-size: 1.3em;
 }
 
 .photographer_section article .tagline {
-    font-size: 13px;
+    font-size: 1.2em;
 }
 
 .photographer_section article .price {
-    font-size: 10px;
+    font-size: 1.2em;
 }
 
 p {

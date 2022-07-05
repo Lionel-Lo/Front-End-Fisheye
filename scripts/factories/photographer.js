@@ -266,7 +266,7 @@ export default class Photographer {
         //Event au click next
         next.addEventListener('click', e => {
             e.preventDefault()
-            if (this.index < images.length) {
+            if (this.index < (images.length - 1)) {
                 this.index++
                 let title = titles[this.index].outerHTML
                 let video_picture = images[this.index].outerHTML
@@ -274,8 +274,6 @@ export default class Photographer {
             }
 
         })
-
-
     }
 
     //fonction pour passer a l'image precedente 
@@ -290,7 +288,8 @@ export default class Photographer {
 
         //Event au click previous
         prev.addEventListener('click', e => {
-            if (this.index < images.length) {
+            let n = images.length
+            if (this.index > (images.length - n)) {
                 this.index--
                 let title = titles[this.index].outerHTML
                 let video_picture = images[this.index].outerHTML
@@ -327,10 +326,12 @@ export default class Photographer {
             //event keydown Arrow-right for next picture
             if (e.key == "ArrowRight") {
                 e.preventDefault()
+                if (this.index < (images.length - 2)){
                 this.index++
                 let title = titles[this.index].outerHTML
                 let video_picture = images[this.index].outerHTML
                 lightbox__container.innerHTML = `${video_picture} ${title}`
+                }
             }
         });
     }
@@ -346,10 +347,13 @@ export default class Photographer {
         document.addEventListener("keydown", e => {
             if (e.key == "ArrowLeft") {
                 e.preventDefault()
+                let n = images.length
+                if (this.index > (images.length - n)){
                 this.index--
                 let title = titles[this.index].outerHTML
                 let video_picture = images[this.index].outerHTML
                 lightbox__container.innerHTML = `${video_picture} ${title}`
+                }
             }
         });
     }
